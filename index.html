@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Khanya!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Orbitron:wght@400;700&family=Russo+One&display=swap');
+        
+        .font-bangers {
+            font-family: 'Bangers', cursive;
+        }
+        
+        .font-orbitron {
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .font-russo {
+            font-family: 'Russo One', sans-serif;
+        }
+        
+        .mechanical-bg {
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MDAiIGhlaWdodD0iNjAwIiB2aWV3Qm94PSIwIDAgNjAwIDYwMCI+PHBhdGggZD0iTTMwMCAwdjYwME0wIDMwMGg2MDAiIHN0cm9rZT0icmdiYSgyNTUsMjU1LDI1NSwuMDMpIiBzdHJva2Utd2lkdGg9IjIiLz48cGF0aCBkPSJNMCwwTDYwMCw2MDAiIHN0cm9rZT0icmdiYSgyNTUsMjU1LDI1NSwuMDMpIiBzdHJva2Utd2lkdGg9IjIiLz48cGF0aCBkPSJNNjAwLDBMMCw2MDAiIHN0cm9rZT0icmdiYSgyNTUsMjU1LDI1NSwuMDMpIiBzdHJva2Utd2lkdGg9IjIiLz48L3N2Zz4=');
+        }
+        
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MDAiIGhlaWdodD0iNjAwIiB2aWV3Qm94PSIwIDAgNjAwIDYwMCI+PHBhdGggZD0iTTMwMCAwdjYwME0wIDMwMGg2MDAiIHN0cm9rZT0icmdiYSgyNTUsMjU1LDI1NSwuMDMpIiBzdHJva2Utd2lkdGg9IjIiLz48L3N2Zz4=');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .superman-red {
+            background-color: #d20000;
+        }
+        
+        .superman-blue {
+            background-color: #2367b0;
+        }
+        
+        .superman-yellow {
+            background-color: #ffbc00;
+        }
+        
+        .page-transition {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .engineer-tool {
+            transition: all 0.3s ease;
+        }
+        
+        .engineer-tool:hover {
+            transform: rotate(15deg) scale(1.1);
+        }
+        
+        .confetti-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+        
+        .slot-machine {
+            perspective: 1000px;
+        }
+        
+        .slot-reel {
+            transform-style: preserve-3d;
+            animation: spin 0.1s infinite linear;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotateX(0deg); }
+            100% { transform: rotateX(360deg); }
+        }
+        
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #d20000;
+        }
+        
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #d20000;
+        }
+
+        .hint-popup {
+            display: none;
+            position: absolute;
+            background-color: rgba(0,0,0,0.9);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            z-index: 100;
+            width: 300px;
+            box-shadow: 0 0 20px rgba(255,255,255,0.2);
+        }
+
+        .hint-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .hint-container:hover .hint-popup {
+            display: block;
+        }
+
+        .love-quote {
+            font-family: 'Georgia', serif;
+            font-style: italic;
+            font-size: 1.2rem;
+            color: #ff6b6b;
+            text-align: center;
+            margin-top: 20px;
+            opacity: 0;
+            transition: opacity 1s ease;
+            height: 0;
+            overflow: hidden;
+        }
+
+        #math-result .love-quote {
+            opacity: 1;
+            height: auto;
+        }
+
+        .puzzle-image {
+            background-image: url('images/puzzle.jpeg');
+            background-size: cover;
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+            cursor: pointer;
+            transition: all 0.5s ease;
+        }
+
+        .puzzle-image.solved {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(255,192,203,0.7);
+        }
+
+        .match-card {
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+        }
+
+        .match-card.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .match-card .front, .match-card .back {
+            backface-visibility: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .match-card .back {
+            transform: rotateY(180deg);
+        }
+
+        .blueprint-bg {
+            background: linear-gradient(rgba(0, 0, 50, 0.7), rgba(0, 0, 50, 0.7)), url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MDAiIGhlaWdodD0iNjAwIiB2aWV3Qm94PSIwIDAgNjAwIDYwMCI+PHBhdGggZD0iTTAsMEw2MDAsNjAwTTYwMCwwTDAsNjAwIiBzdHJva2U9IiMwMDU1Y2MiIHN0cm9rZS13aWR0aD0iMC41IiBzdHJva2Utb3BhY2l0eT0iMC4yIi8+PHBhdGggZD0iTTMwMCwwTDMwMCw2MDBNMCwzMDBMNjAwLDMwMCIgc3Ryb2tlPSIjMDA1NWNjIiBzdHJva2Utd2lkdGg9IjAuNSIgc3Ryb2tlLW9wYWNpdHk9IjAuMiIvPjwvc3ZnPg==');
+        }
+
+        .blueprint-card {
+            background-color: rgba(240, 248, 255, 0.9);
+            color: #003366;
+            border: 1px dashed #003366;
+        }
+
+        .physics-bg {
+            background: linear-gradient(rgba(20, 20, 20, 0.9), rgba(20, 20, 20, 0.9)), url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBmaWxsPSIjOTU5NTk1IiBkPSJNNDQyLjkgODguNUw0MjMuNSA2OS4xIDE0Ni45IDI0NS43bDE5LjQgMTkuNCAyNzYuNi0xNzYuNnptLTEyNiAxNy44TDEwOC4yIDM1Ny4xbC0xOS45LTE5LjktMTkuOSAxOS45IDE5LjkgMTkuOSAxOS45IDE5LjkgMTkuOS0xOS45IDE5OS0xOS45IDE5LjkgMTkuOSAxOS45LTE5LjktMTkuOS0xOS45LTE5LjkgMTkuOS02MC4yLTYwLjJ6bS00NC42IDQ0LjZMODkgMzM1LjVsLTE5LjkgMTkuOSA2MC4yIDYwLjIgMTkuOS0xOS45LTYwLjItNjAuMnptMzE3LjIgMjI2LjVsLTE5LjcgMTkuNy02MS4xLTYxLjEgMTkuNy0xOS43IDYxLjEgNjEuMXpNMjU2IDQ4QzE0MS4xIDQ4IDQ4IDE0MS4xIDQ4IDI1NnM5My4xIDIwOCAyMDggMjA4IDIwOC05My4xIDIwOC0yMDhTMzcwLjkgNDggMjU2IDQ4em0tMjcuNCAzNDkuOGwtMTkuNC0xOS40IDE5LjQtMTkuNCAxOS40IDE5LjQtMTkuNCAxOS40em0xMzcuNi00MC40bC02MS4xIDYxLjEtMTkuNy0xOS43IDYxLjEtNjEuMSAxOS43IDE5Ljd6bS04My4xLTE4NS4zbC00Mi40LTQyLjQtMTkuNCAxOS40IDQyLjQgNDIuNCAxOS40LTE5LjR6bS01My43IDUzLjdsLTE5LjQgMTkuNC00Mi40LTQyLjQgMTkuNC0xOS40IDQyLjQgNDIuNHptOTMuNi02MS4xbC0xOS40IDE5LjQtMTkuNC0xOS40IDE5LjQtMTkuNCAxOS40IDE5LjR6Ii8+PC9zdmc+');
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
+            50% { transform: translateY(-20px) rotate(10deg); opacity: 0.6; }
+            100% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
+        }
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Drag and Drop Puzzle Styles */
+        .puzzle-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .puzzle-board {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+            background-color: #333;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 2px solid #444;
+            gap: 1px;
+        }
+
+        .puzzle-slot {
+            width: 100%;
+            height: 100%;
+            background-color: #444;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .puzzle-slot.highlight {
+            background-color: #555;
+            border: 2px dashed #ffbc00;
+        }
+
+        .puzzle-piece {
+            width: 100%;
+            height: 100%;
+            background-size: 300px 300px;
+            cursor: grab;
+            transition: transform 0.1s;
+            position: relative;
+            z-index: 10;
+        }
+
+        .puzzle-piece.dragging {
+            cursor: grabbing;
+            transform: scale(1.1);
+            z-index: 20;
+            box-shadow: 0 0 15px rgba(255,255,255,0.5);
+        }
+
+        .puzzle-pieces-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: rgba(0,0,0,0.3);
+            border-radius: 8px;
+            width: 300px;
+        }
+
+        .puzzle-pieces-container .puzzle-piece {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto;
+        }
+
+        .puzzle-solved .puzzle-piece {
+            filter: none;
+            border-color: rgba(255,255,255,0.5);
+        }
+
+        .correct-position {
+            border: 2px solid #4CAF50 !important;
+        }
+
+        #math-result {
+            margin-top: 20px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100">
+    <!-- Main container -->
+    <div id="app" class="min-h-screen">
+        <!-- Welcome Page -->
+        <div id="welcome-page" class="hero-section min-h-screen flex flex-col justify-center items-center p-6">
+            <div class="max-w-4xl mx-auto text-center page-transition">
+                <div class="flex justify-center mb-8">
+                    <div class="relative">
+                        <img src="images/khaya.png" class="w-32 h-32 animate-pulse" alt="Khanya's Logo">
+                        <i class="fas fa-bolt text-yellow-400 text-4xl absolute -right-4 -top-4 animate-spin" style="animation-duration: 3s;"></i>
+                    </div>
+                </div>
+                <h1 class="text-6xl md:text-8xl font-bangers mb-6 superman-red text-yellow-400 tracking-wider">HAPPY BIRTHDAY KHANYA!</h1>
+                <p class="text-xl md:text-2xl font-orbitron mb-8 text-gray-300 max-w-2xl mx-auto">
+                    The engineer with a superhero heart! <span class="text-yellow-400">Faster than a speeding bullet...</span> well, calculus at least!
+                </p>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                    <div class="bg-gray-800 p-4 rounded-lg card-hover">
+                        <i class="fas fa-brain text-blue-400 text-3xl mb-2"></i>
+                        <p class="font-russo">Trivia Challenge</p>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded-lg card-hover">
+                        <i class="fas fa-puzzle-piece text-red-500 text-3xl mb-2"></i>
+                        <p class="font-russo">Puzzle Challenge</p>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded-lg card-hover">
+                        <i class="fas fa-shield-alt text-yellow-400 text-3xl mb-2"></i>
+                        <p class="font-russo">Superhero Match</p>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded-lg card-hover">
+                        <i class="fas fa-atom text-green-400 text-3xl mb-2"></i>
+                        <p class="font-russo">Physics Test</p>
+                    </div>
+                </div>
+                <button onclick="startAdventure()" class="superman-red hover:bg-red-700 text-white font-bangers py-3 px-8 rounded-full text-xl md:text-2xl transition-all transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-opacity-50">
+                    BEGIN YOUR BIRTHDAY ADVENTURE <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+                <div class="mt-12 animate-bounce">
+                    <i class="fas fa-angle-double-down text-gray-400 text-2xl"></i>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Superman Trivia Game -->
+        <div id="trivia-page" class="hidden min-h-screen p-6 flex flex-col justify-center mechanical-bg">
+            <div class="max-w-4xl mx-auto bg-gray-800 bg-opacity-90 rounded-xl p-6 md:p-8 shadow-2xl page-transition">
+                <div class="flex items-center mb-6">
+                    <button onclick="backToWelcome()" class="mr-4 bg-gray-700 hover:bg-gray-600 p-2 rounded-full">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <h2 class="text-3xl md:text-4xl font-bangers superman-red">SUPERMAN TRIVIA CHALLENGE</h2>
+                    <div class="hint-container ml-auto">
+                        <button class="bg-gray-700 hover:bg-gray-600 p-2 rounded-full">
+                            <i class="fas fa-question-circle text-yellow-400"></i>
+                        </button>
+                        <div class="hint-popup">
+                            <h4 class="font-bold mb-2">How to Play:</h4>
+                            <p>Answer all 5 challenging Superman trivia questions correctly to unlock the next game. These are tough questions for true fans!</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <p class="text-gray-300 mb-8 font-orbitron">
+                    Think you're a real Superman expert? Prove it by acing all 5 tough questions or risk being exposed as a Kryptonite-carrying poser! Your birthday surprise awaits... if you're worthy!
+                </p>
+                
+                <div id="trivia-questions" class="space-y-6 mb-8">
+                    <!-- Question 1 -->
+                    <div class="bg-gray-700 rounded-lg p-4 border-l-4 border-yellow-400">
+                        <p class="font-bold mb-3">1. In which issue did Superman first appear?</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                            <button onclick="checkAnswer(this, true)" class="bg-gray-600 hover:bg-gray-500 p-2 rounded">Action Comics #1 (1938)</button>
+                            <button onclick="checkAnswer(this, false)" class="bg-gray-600 hover:bg-gray-500 p-2 rounded">Detective Comics #27 (1939)</button>
+                            <button onclick="checkAnswer(this, false)" class="bg-gray-600 hover:bg-gray-500 p-2 rounded">Superman #1 (1939)</button>
+                            <button onclick="checkAnswer(this, false)" class="bg-gray-600 hover:bg-gray-500 p-2 rounded">All-Star Comics #8 (1941)</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Question 2 -->
+                    <div class="bg-gray-700 rounded-lg p-4 border-l-4 border-yellow-400">
+                        <p class="font-bold mb-3">2. What was the original name of Superman's father on Krypton?</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                            <button onclick="checkAnswer(this, false)" class="bg-gray-600 hover:bg-gray-500 p-2 rounded">Zor-El</button>
+                            <button onclick="checkAnswer(this, false)" class="bg-gray-600 hover:bg-gray-500 p-2 rounded">Jor-L</button>
+                            <button onclick="checkAnswer(this, true)" class="bg-gray-600 hover:bg-gray-500 p-2 rounded">Jor-El</button>
+                            <button onclick="checkAnswer(this, false)" class="bg-gray-600 hover:bg-gray-500 p-2 rounded">Seg-El</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Question 3 -->
+                    <div class="bg-gray-700 rounded-lg p-4 border-l-4 border-yellow-400">
+                        <p class="font-bold mb-3">3. What was the name of the Kryptonian criminal who was the first to discover Superman's secret identity?</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                            <button onclick="checkAnswer(this, false)" class="bg-gray-600 hover:bg-gray-500 p-2 rounded">Brainiac</button>
+                            <button onclick="checkAnswer(this, true)" class="bg-gray-600 hover:bg-gray-500 p-2 rounded">Jax-Ur</button>
+                            <button onclick="checkAnswer(this, false)" class="bg-gray-600 hover:bg-gray-500 p-2 rounded">General Zod</button>
+                            <button onclick="checkAnswer(this, false)" class="bg-gray-600 hover:bg-gray-500 p-2 rounded">Mister Mxyzptlk</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Question 4 -->
+                    <div class="bg-gray-700 rounded-lg p-4 border-l-4 border-yellow-400">
+                        <p class="font-bold mb-3">4. What was the original color of Kryptonite when it first appeared in the radio series?</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                            <button onclick="checkAnswer(this, false)" class="bg-gray-600 hover:bg-gray-500 p-2 rounded">Blue</button>
+                            <button onclick="checkAnswer(this, false)" class="bg-gray-600 hover:bg-gray-500 p-2 rounded">Red</button>
+                            <button onclick="checkAnswer(this, false)" class="bg-gray-600 hover:bg-gray-500 p-2 rounded">Green</button>
+                            <button onclick="checkAnswer(this, true)" class="bg-gray-600 hover:bg-gray-500 p-2 rounded">It wasn't colored originally</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Question 5 -->
+                    <div class="bg-gray-700 rounded-lg p-4 border-l-4 border-yellow-400">
+                        <p class="font-bold mb-3">5. Which of these powers did Superman NOT originally have in 1938?</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                            <button onclick="checkAnswer(this, false)" class="bg-gray-600 hover:bg-gray-500 p-2 rounded">Super strength</button>
+                            <button onclick="checkAnswer(this, false)" class="bg-gray-600 hover:bg-gray-500 p-2 rounded">Bulletproof skin</button>
+                            <button onclick="checkAnswer(this, true)" class="bg-gray-600 hover:bg-gray-500 p-2 rounded">Heat vision</button>
+                            <button onclick="checkAnswer(this, false)" class="bg-gray-600 hover:bg-gray-500 p-2 rounded">Leaping tall buildings</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="trivia-result" class="hidden text-center">
+                    <div class="superman-blue text-white p-6 rounded-xl mb-6">
+                        <i class="fas fa-trophy text-yellow-400 text-5xl mb-4"></i>
+                        <h3 class="text-2xl font-bangers mb-2">PERFECT SCORE!</h3>
+                        <p class="mb-4">You really know your Superman lore! The way you answered those questions... it's almost like you have superpowers!</p>
+                        <button onclick="nextGame('math')" class="bg-yellow-400 hover:bg-yellow-300 text-gray-900 font-bold py-2 px-4 rounded">
+                            Next Challenge <i class="fas fa-puzzle-piece"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Sliding Puzzle Challenge Game -->
+        <div id="math-page" class="hidden min-h-screen p-6 flex flex-col justify-center blueprint-bg">
+            <div class="max-w-4xl mx-auto bg-gray-800 bg-opacity-90 rounded-xl p-6 md:p-8 shadow-2xl page-transition">
+                <div class="flex items-center mb-6">
+                    <button onclick="backToGame('trivia')" class="mr-4 bg-gray-700 hover:bg-gray-600 p-2 rounded-full">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <h2 class="text-3xl md:text-4xl font-bangers text-blue-400">DRAG & DROP PUZZLE CHALLENGE</h2>
+                    <div class="hint-container ml-auto">
+                        <button class="bg-gray-700 hover:bg-gray-600 p-2 rounded-full">
+                            <i class="fas fa-question-circle text-yellow-400"></i>
+                        </button>
+                        <div class="hint-popup">
+                            <h4 class="font-bold mb-2">How to Play:</h4>
+                            <p>Drag the puzzle pieces from the bottom onto the board to form the complete image. Each piece will snap into place when dropped in the correct position.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <p class="text-gray-300 mb-8 font-orbitron">
+                    Put your problem-solving skills to the test! Drag the pieces to reveal the complete image.
+                </p>
+                
+                <div class="puzzle-container">
+                    <div id="puzzle-board" class="puzzle-board mb-6">
+                        <!-- Puzzle slots will be inserted here by JavaScript -->
+                    </div>
+                    
+                    <div id="puzzle-pieces-container" class="puzzle-pieces-container">
+                        <!-- Puzzle pieces will be inserted here by JavaScript -->
+                    </div>
+                </div>
+                
+                <div id="math-result" class="hidden text-center">
+                    <div class="bg-blue-800 text-white p-6 rounded-xl mb-6">
+                        <div class="puzzle-image"></div>
+                        <h3 class="text-2xl font-bangers mb-2">PUZZLE MASTER!</h3>
+                        <p class="mb-4">You've solved the puzzle! Here's your special message:</p>
+                        <div class="love-quote">
+                            "The best engineers don't just build things... they build happiness. And you're the best at both!"
+                        </div>
+                        <button onclick="nextGame('superhero')" class="bg-yellow-400 hover:bg-yellow-300 text-gray-900 font-bold py-2 px-4 rounded mt-4">
+                            Next Challenge <i class="fas fa-shield-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Superhero Match Game -->
+        <div id="superhero-page" class="hidden min-h-screen p-6 flex flex-col justify-center" style="background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MDAiIGhlaWdodD0iNjAwIiB2aWV3Qm94PSIwIDAgNjAwIDYwMCI+PHBhdGggZD0iTTAsMEw2MDAsNjAwTTYwMCwwTDAsNjAwIiBzdHJva2U9IiM1NTUiIHN0cm9rZS13aWR0aD0iMSIvPjxwYXRoIGQ9Ik0zMDAsMEwzMDAsNjAwTTAsMzAwTDYwMCwzMDAiIHN0cm9rZT0iIzIyMiIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9zdmc+')">
+            <div class="max-w-4xl mx-auto bg-gray-800 bg-opacity-90 rounded-xl p-6 md:p-8 shadow-2xl page-transition">
+                <div class="flex items-center mb-6">
+                    <button onclick="backToGame('math')" class="mr-4 bg-gray-700 hover:bg-gray-600 p-2 rounded-full">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <h2 class="text-3xl md:text-4xl font-bangers text-yellow-400">
+                        SUPERHERO MATCH
+                    </h2>
+                    <div class="hint-container ml-auto">
+                        <button class="bg-gray-700 hover:bg-gray-600 p-2 rounded-full">
+                            <i class="fas fa-question-circle text-yellow-400"></i>
+                        </button>
+                        <div class="hint-popup">
+                            <h4 class="font-bold mb-2">How to Play:</h4>
+                            <p>Flip cards to find matching pairs of superheroes and their symbols. Match all pairs to complete the challenge!</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <p class="text-gray-300 mb-8 font-orbitron">
+                    Test your superhero knowledge! Match each hero with their symbol to unlock your birthday surprise.
+                </p>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8" id="match-game">
+                    <!-- Cards will be generated by JavaScript -->
+                </div>
+                
+                <div id="superhero-result" class="hidden text-center">
+                    <div class="bg-gradient-to-r from-blue-900 to-purple-900 text-white p-6 rounded-xl mb-6">
+                        <i class="fas fa-star text-yellow-400 text-5xl mb-4"></i>
+                        <h3 class="text-2xl font-bangers mb-2">ALL MATCHES FOUND!</h3>
+                        <p class="mb-4">You've successfully matched all superheroes with their symbols!</p>
+                        <button onclick="nextGame('physics')" class="bg-yellow-400 hover:bg-yellow-300 text-gray-900 font-bold py-2 px-4 rounded">
+                            Final Challenge <i class="fas fa-atom"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Physics Challenge Game -->
+        <div id="physics-page" class="hidden min-h-screen p-6 flex flex-col justify-center physics-bg">
+            <div class="max-w-4xl mx-auto bg-gray-800 bg-opacity-90 rounded-xl p-6 md:p-8 shadow-2xl page-transition">
+                <div class="flex items-center mb-6">
+                    <button onclick="backToGame('superhero')" class="mr-4 bg-gray-700 hover:bg-gray-600 p-2 rounded-full">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <h2 class="text-3xl md:text-4xl font-bangers text-green-400">SUPER PHYSICS CHALLENGE</h2>
+                    <div class="hint-container ml-auto">
+                        <button class="bg-gray-700 hover:bg-gray-600 p-2 rounded-full">
+                            <i class="fas fa-question-circle text-yellow-400"></i>
+                        </button>
+                        <div class="hint-popup">
+                            <h4 class="font-bold mb-2">How to Play:</h4>
+                            <p>These advanced physics questions combine real-world physics with Superman's abilities. Answer all correctly to proceed!</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <p class="text-gray-300 mb-8 font-orbitron">
+                    Test your knowledge of physics applied to Superman's incredible abilities. These questions require both physics expertise and Superman knowledge!
+                </p>
+                
+                <div class="grid md:grid-cols-2 gap-6 mb-8" id="physics-questions">
+                    <!-- Question 1 -->
+                    <div class="bg-gray-700 rounded-lg p-4 border-l-4 border-green-400">
+                        <p class="font-bold mb-3">1. If Superman (mass 100kg) accelerates from 0 to Mach 10 (3,430 m/s) in 0.1s, what average force would be required?</p>
+                        <div class="space-y-2">
+                            <button onclick="checkPhysicsAnswer(this, false, 'physics1')" class="w-full bg-gray-600 hover:bg-gray-500 p-2 rounded flex items-center">
+                                <span class="bg-gray-800 px-3 py-1 rounded mr-3">A</span>
+                                <span>3.43 MN (MegaNewtons)</span>
+                            </button>
+                            <button onclick="checkPhysicsAnswer(this, true, 'physics1')" class="w-full bg-gray-600 hover:bg-gray-500 p-2 rounded flex items-center">
+                                <span class="bg-gray-800 px-3 py-1 rounded mr-3">B</span>
+                                <span>3.43 GN (GigaNewtons)</span>
+                            </button>
+                            <button onclick="checkPhysicsAnswer(this, false, 'physics1')" class="w-full bg-gray-600 hover:bg-gray-500 p-2 rounded flex items-center">
+                                <span class="bg-gray-800 px-3 py-1 rounded mr-3">C</span>
+                                <span>343 kN (KiloNewtons)</span>
+                            </button>
+                        </div>
+                        <p id="physics-feedback1" class="hidden mt-2 text-green-400 text-sm">
+                            <i class="fas fa-check-circle mr-1"></i> Correct! F = ma = 100kg × (3,430m/s ÷ 0.1s) = 3.43 GN. That's equivalent to 350,000 metric tons of force!
+                        </p>
+                    </div>
+                    
+                    <!-- Question 2 -->
+                    <div class="bg-gray-700 rounded-lg p-4 border-l-4 border-green-400">
+                        <p class="font-bold mb-3">2. What's the energy equivalent (in megatons of TNT) of the gravitational binding energy of Krypton (mass 2.8×10²⁵kg, radius 7,000km)?</p>
+                        <div class="space-y-2">
+                            <button onclick="checkPhysicsAnswer(this, false, 'physics2')" class="w-full bg-gray-600 hover:bg-gray-500 p-2 rounded flex items-center">
+                                <span class="bg-gray-800 px-3 py-1 rounded mr-3">A</span>
+                                <span>1.2 million megatons</span>
+                            </button>
+                            <button onclick="checkPhysicsAnswer(this, false, 'physics2')" class="w-full bg-gray-600 hover:bg-gray-500 p-2 rounded flex items-center">
+                                <span class="bg-gray-800 px-3 py-1 rounded mr-3">B</span>
+                                <span>58 million megatons</span>
+                            </button>
+                            <button onclick="checkPhysicsAnswer(this, true, 'physics2')" class="w-full bg-gray-600 hover:bg-gray-500 p-2 rounded flex items-center">
+                                <span class="bg-gray-800 px-3 py-1 rounded mr-3">C</span>
+                                <span>240 million megatons</span>
+                            </button>
+                        </div>
+                        <p id="physics-feedback2" class="hidden mt-2 text-green-400 text-sm">
+                            <i class="fas fa-check-circle mr-1"></i> Correct! U = (3GM²)/(5R) ≈ 1×10³⁹J ≈ 240 million megatons. This explains why Krypton's destruction released so much energy!
+                        </p>
+                    </div>
+                    
+                    <!-- Question 3 -->
+                    <div class="bg-gray-700 rounded-lg p-4 border-l-4 border-green-400">
+                        <p class="font-bold mb-3">3. If Superman's heat vision (at 5,500°C) melts a 1m³ steel block (ρ=8,050kg/m³) in 2s, what's the minimum power output?</p>
+                        <div class="space-y-2">
+                            <button onclick="checkPhysicsAnswer(this, false, 'physics3')" class="w-full bg-gray-600 hover:bg-gray-500 p-2 rounded flex items-center">
+                                <span class="bg-gray-800 px-3 py-1 rounded mr-3">A</span>
+                                <span>~45 MW (Megawatts)</span>
+                            </button>
+                            <button onclick="checkPhysicsAnswer(this, true, 'physics3')" class="w-full bg-gray-600 hover:bg-gray-500 p-2 rounded flex items-center">
+                                <span class="bg-gray-800 px-3 py-1 rounded mr-3">B</span>
+                                <span>~450 MW</span>
+                            </button>
+                            <button onclick="checkPhysicsAnswer(this, false, 'physics3')" class="w-full bg-gray-600 hover:bg-gray-500 p-2 rounded flex items-center">
+                                <span class="bg-gray-800 px-3 py-1 rounded mr-3">C</span>
+                                <span>~4.5 GW (Gigawatts)</span>
+                            </button>
+                        </div>
+                        <p id="physics-feedback3" class="hidden mt-2 text-green-400 text-sm">
+                            <i class="fas fa-check-circle mr-1"></i> Correct! Q = mcΔT + mL ≈ (8,050kg)(470J/kg·K)(1,500K) + (8,050kg)(272,000J/kg) ≈ 900MJ → P = 900MJ/2s ≈ 450MW
+                        </p>
+                    </div>
+                    
+                    <!-- Question 4 -->
+                    <div class="bg-gray-700 rounded-lg p-4 border-l-4 border-green-400">
+                        <p class="font-bold mb-3">4. What's the theoretical minimum time Superman would need to circle Earth (radius 6,371km) at low altitude without breaking physics?</p>
+                        <div class="space-y-2">
+                            <button onclick="checkPhysicsAnswer(this, false, 'physics4')" class="w-full bg-gray-600 hover:bg-gray-500 p-2 rounded flex items-center">
+                                <span class="bg-gray-800 px-3 py-1 rounded mr-3">A</span>
+                                <span>42 minutes (orbital velocity)</span>
+                            </button>
+                            <button onclick="checkPhysicsAnswer(this, false, 'physics4')" class="w-full bg-gray-600 hover:bg-gray-500 p-2 rounded flex items-center">
+                                <span class="bg-gray-800 px-3 py-1 rounded mr-3">B</span>
+                                <span>84 minutes</span>
+                            </button>
+                            <button onclick="checkPhysicsAnswer(this, true, 'physics4')" class="w-full bg-gray-600 hover:bg-gray-500 p-2 rounded flex items-center">
+                                <span class="bg-gray-800 px-3 py-1 rounded mr-3">C</span>
+                                <span>1.4 hours (minimum stable orbit)</span>
+                            </button>
+                        </div>
+                        <p id="physics-feedback4" class="hidden mt-2 text-green-400 text-sm">
+                            <i class="fas fa-check-circle mr-1"></i> Correct! The minimum orbital period is ~84 minutes (T = 2π√(r³/GM)). "Faster than a speeding bullet" indeed!
+                        </p>
+                    </div>
+                </div>
+                
+                <div id="physics-result" class="hidden text-center">
+                    <div class="bg-green-900 text-white p-6 rounded-xl mb-6">
+                        <i class="fas fa-atom text-yellow-400 text-5xl mb-4 animate-spin" style="animation-duration: 3s;"></i>
+                        <h3 class="text-2xl font-bangers mb-2">PHYSICS MASTER!</h3>
+                        <p class="mb-4">You've demonstrated Kryptonian-level understanding of physics! Your knowledge rivals Superman's powers!</p>
+                        <button onclick="navigateTo('finale')" class="bg-yellow-400 hover:bg-yellow-300 text-gray-900 font-bold py-2 px-4 rounded">
+                            REVEAL YOUR FINALE! <i class="fas fa-star"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Birthday Finale Page -->
+        <div id="finale-page" class="hidden min-h-screen p-6 flex flex-col justify-center items-center bg-gradient-to-br from-purple-900 via-blue-900 to-gray-900">
+            <div class="max-w-4xl mx-auto text-center relative z-10 animate-pulse">
+                <div class="page-transition">
+                    <div class="flex justify-center mb-8">
+                        <div class="relative">
+                            <div class="absolute -inset-4 bg-yellow-400 rounded-full opacity-30 blur-xl animate-pulse"></div>
+                            <img src="images/baby.png" class="relative w-40 h-40" alt="Special Birthday Logo">
+                        </div>
+                    </div>
+                    
+                    <h1 class="text-6xl md:text-8xl font-bangers mb-6 text-yellow-400 tracking-wider">HAPPY BIRTHDAY KHANYA!</h1>
+                    <h2 class="text-3xl md:text-4xl font-russo mb-6 text-white">
+                        My <span class="text-blue-400">Engineering</span> <span class="text-red-500">Superhero</span>!
+                    </h2>
+                    
+                    <div class="bg-gray-800 bg-opacity-80 rounded-xl p-8 mb-8 border-4 border-yellow-400 transform hover:scale-105 transition-all duration-300">
+                        <p class="text-xl md:text-2xl mb-6">
+                            <span class="text-yellow-400 font-bold">CONGRATULATIONS ENGINEER!</span> You've conquered all challenges with superhero precision!
+                        </p>
+                        <p class="text-xl md:text-2xl mb-6">
+                            Your birthday rating: <span class="text-4xl font-bold text-yellow-400">∞/10!</span> (That's engineering infinity!)
+                        </p>
+                        <div class="flex justify-center mb-6">
+                            <div class="p-4 bg-blue-900 rounded-full animate-spin" style="animation-duration: 5s;">
+                                <i class="fas fa-atom text-5xl text-green-400"></i>
+                            </div>
+                        </div>
+                        <p class="text-xl md:text-2xl">
+                            You light up every room you enter and every heart you touch. I'm so lucky to share this life with you. Here's to more laughter, warm hugs, and beautiful memories together. You deserve all the joy in the world today and always.
+                        </p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                        <div class="bg-gradient-to-br from-blue-900 to-blue-700 p-4 rounded-lg card-hover transform hover:scale-110">
+                            <i class="fas fa-cogs text-yellow-400 text-4xl mb-2"></i>
+                            <h3 class="text-xl font-bold mb-2">Engineering Mastery</h3>
+                            <p class="text-gray-300">Precision like Cyborg</p>
+                        </div>
+                        <div class="bg-gradient-to-br from-red-900 to-red-700 p-4 rounded-lg card-hover transform hover:scale-110">
+                            <i class="fas fa-bolt text-yellow-400 text-4xl mb-2"></i>
+                            <h3 class="text-xl font-bold mb-2">Super Powers</h3>
+                            <p class="text-gray-300">Strength of Superman</p>
+                        </div>
+                        <div class="bg-gradient-to-br from-purple-900 to-purple-700 p-4 rounded-lg card-hover transform hover:scale-110">
+                            <i class="fas fa-heart text-yellow-400 text-4xl mb-2"></i>
+                            <h3 class="text-xl font-bold mb-2">Birthday Wishes</h3>
+                            <p class="text-gray-300">Heart of Gold</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-col md:flex-row justify-center gap-4 mb-8">
+                        <button onclick="fireConfetti()" class="bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-400 hover:to-yellow-500 text-gray-900 font-bangers py-4 px-8 rounded-full text-xl md:text-2xl transition-all transform hover:scale-105 shadow-lg">
+                            <i class="fas fa-fire mr-2"></i> MEGA CONFETTI BLAST!
+                        </button>
+                        <button onclick="navigateTo('welcome')" class="bg-gradient-to-r from-gray-700 to-gray-800 hover:from-gray-600 hover:to-gray-700 text-white font-bold py-4 px-8 rounded-full text-xl transition-all transform hover:scale-105">
+                            <i class="fas fa-redo mr-2"></i> Play Again
+                        </button>
+                    </div>
+                    
+                    <div class="text-gray-400 text-sm">
+                        <p>Made with <i class="fas fa-heart text-red-500"></i> by the best gf in the world</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Floating celebration elements -->
+            <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+                <div class="absolute top-1/4 left-1/4 text-4xl text-yellow-400 opacity-30 animate-float" style="animation-delay: 0s;">
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="absolute top-1/3 right-1/5 text-5xl text-blue-400 opacity-30 animate-float" style="animation-delay: 2s;">
+                    <i class="fas fa-atom"></i>
+                </div>
+                <div class="absolute bottom-1/4 left-1/5 text-6xl text-red-400 opacity-30 animate-float" style="animation-delay: 4s;">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <div class="absolute top-1/5 right-1/4 text-3xl text-green-400 opacity-30 animate-float" style="animation-delay: 1s;">
+                    <i class="fas fa-cog"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <canvas id="confetti-canvas" class="confetti-canvas"></canvas>
+
+    <script>
+        // Game state
+        let currentPage = 'welcome';
+        let correctAnswers = 0;
+        let correctPhysicsAnswers = 0;
+        let matchedPairs = 0;
+        let firstCard = null;
+        let secondCard = null;
+        let lockBoard = false;
+        
+        // Puzzle game variables
+        let puzzlePieces = [];
+        let placedPieces = Array(9).fill(null); // Track placed pieces (3x3 grid)
+        const puzzleSize = 3; // 3x3 puzzle
+        let draggedPiece = null;
+
+        // Superhero match game data - updated with local PNG paths
+        const superheroCards = [
+            { name: 'Superman', symbol: 'images/superman.png' },
+            { name: 'Batman', symbol: 'images/batman.png' },
+            { name: 'Wonder Woman', symbol: 'images/wonder-woman.png' },
+            { name: 'Flash', symbol: 'images/flash.png' }
+        ];
+        
+        // Navigation functions
+        function startAdventure() {
+            navigateTo('trivia');
+        }
+        
+        function nextGame(game) {
+            navigateTo(game);
+            if (game === 'superhero') {
+                setupMatchGame();
+            }
+        }
+        
+        function backToWelcome() {
+            navigateTo('welcome');
+        }
+        
+        function backToGame(game) {
+            navigateTo(game);
+        }
+        
+        function navigateTo(page) {
+            try {
+                // Hide all pages first
+                document.querySelectorAll('[id$="-page"]').forEach(el => {
+                    el.classList.add('hidden');
+                });
+                
+                // Show requested page
+                const targetPage = document.getElementById(page + '-page');
+                if (!targetPage) {
+                    throw new Error(`Page ${page}-page not found`);
+                }
+                
+                targetPage.classList.remove('hidden');
+                currentPage = page;
+                
+                // Special page handling
+                if (page === 'finale') {
+                    fireConfetti();
+                }
+                
+                // Reset games when navigating to them
+                if (page === 'math') {
+                    setupPuzzleGame();
+                } else if (page === 'superhero') {
+                    setupMatchGame();
+                } else if (page === 'trivia') {
+                    resetTriviaGame();
+                } else if (page === 'physics') {
+                    resetPhysicsGame();
+                }
+            }
+            catch (error) {
+                console.error('Error navigating to page:', error);
+            }
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+        
+        // Trivia game functions
+        function checkAnswer(button, isCorrect) {
+            const questionDiv = button.closest('.bg-gray-700');
+            const buttons = questionDiv.querySelectorAll('button');
+            
+            // Disable all buttons in this question
+            buttons.forEach(btn => {
+                btn.disabled = true;
+            });
+            
+            if (isCorrect) {
+                button.classList.remove('bg-gray-600', 'hover:bg-gray-500');
+                button.classList.add('bg-green-600');
+                correctAnswers++;
+            } else {
+                button.classList.remove('bg-gray-600', 'hover:bg-gray-500');
+                button.classList.add('bg-red-600');
+                
+                // Highlight correct answer
+                buttons.forEach(btn => {
+                    if (btn.getAttribute('onclick').includes('true')) {
+                        btn.classList.remove('bg-gray-600', 'hover:bg-gray-500');
+                        btn.classList.add('bg-green-600');
+                    }
+                });
+            }
+            
+            // Check if all questions are answered
+            setTimeout(() => {
+                const allQuestions = document.querySelectorAll('#trivia-questions > div');
+                const answeredQuestions = document.querySelectorAll('#trivia-questions > div button[disabled]').length / 4;
+                
+                if (answeredQuestions === allQuestions.length) {
+                    if (correctAnswers === allQuestions.length) {
+                        document.getElementById('trivia-result').classList.remove('hidden');
+                    } else {
+                        setTimeout(() => {
+                            alert(`You got ${correctAnswers}/${allQuestions.length} correct! Try again to unlock the next challenge.`);
+                            resetTriviaGame();
+                        }, 1000);
+                    }
+                }
+            }, 1000);
+        }
+        
+        function resetTriviaGame() {
+            correctAnswers = 0;
+            const buttons = document.querySelectorAll('#trivia-questions button');
+            buttons.forEach(button => {
+                button.disabled = false;
+                button.classList.remove('bg-green-600', 'bg-red-600');
+                button.classList.add('bg-gray-600', 'hover:bg-gray-500');
+            });
+        }
+        
+        // Puzzle game functions - Updated for drag and drop
+        function setupPuzzleGame() {
+            const board = document.getElementById('puzzle-board');
+            const piecesContainer = document.getElementById('puzzle-pieces-container');
+            
+            // Clear previous game
+            board.innerHTML = '';
+            piecesContainer.innerHTML = '';
+            placedPieces = Array(9).fill(null);
+            
+            // Create puzzle slots (3x3 grid)
+            for (let row = 0; row < puzzleSize; row++) {
+                for (let col = 0; col < puzzleSize; col++) {
+                    const slot = document.createElement('div');
+                    slot.className = 'puzzle-slot';
+                    slot.dataset.row = row;
+                    slot.dataset.col = col;
+                    slot.dataset.index = row * puzzleSize + col;
+                    
+                    // Make slots droppable
+                    slot.addEventListener('dragover', handleDragOver);
+                    slot.addEventListener('drop', handleDrop);
+                    slot.addEventListener('dragenter', handleDragEnter);
+                    slot.addEventListener('dragleave', handleDragLeave);
+                    
+                    board.appendChild(slot);
+                }
+            }
+            
+            // Create puzzle pieces (all 9 pieces)
+            const pieceIndices = [];
+            for (let i = 0; i < puzzleSize * puzzleSize; i++) {
+                pieceIndices.push(i);
+            }
+            
+            // Shuffle pieces
+            pieceIndices.sort(() => Math.random() - 0.5);
+            
+            // Create pieces
+            pieceIndices.forEach((pieceIndex, i) => {
+                const row = Math.floor(pieceIndex / puzzleSize);
+                const col = pieceIndex % puzzleSize;
+                
+                const piece = document.createElement('div');
+                piece.className = 'puzzle-piece';
+                piece.dataset.row = row;
+                piece.dataset.col = col;
+                piece.dataset.index = pieceIndex;
+                piece.draggable = true;
+                
+                // Calculate background position for the image slice
+                const xPos = -col * 100;
+                const yPos = -row * 100;
+                piece.style.backgroundImage = 'url("images/puzzle.jpeg")';
+                piece.style.backgroundPosition = `${xPos}px ${yPos}px`;
+                
+                // Add drag events
+                piece.addEventListener('dragstart', handleDragStart);
+                piece.addEventListener('dragend', handleDragEnd);
+                
+                piecesContainer.appendChild(piece);
+            });
+            
+            // Hide the result initially
+            document.getElementById('math-result').classList.add('hidden');
+        }
+
+        function handleDragStart(e) {
+            draggedPiece = this;
+            this.classList.add('dragging');
+            e.dataTransfer.setData('text/plain', this.dataset.index);
+            e.dataTransfer.effectAllowed = 'move';
+        }
+
+        function handleDragEnd() {
+            this.classList.remove('dragging');
+            draggedPiece = null;
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+        }
+
+        function handleDragEnter(e) {
+            e.preventDefault();
+            if (draggedPiece) {
+                this.classList.add('highlight');
+            }
+        }
+
+        function handleDragLeave() {
+            this.classList.remove('highlight');
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            this.classList.remove('highlight');
+            
+            if (!draggedPiece) return;
+            
+            const slotIndex = parseInt(this.dataset.index);
+            const pieceIndex = parseInt(draggedPiece.dataset.index);
+            
+            // Check if this is the correct position for the piece
+            const correctRow = Math.floor(pieceIndex / puzzleSize);
+            const correctCol = pieceIndex % puzzleSize;
+            const slotRow = parseInt(this.dataset.row);
+            const slotCol = parseInt(this.dataset.col);
+            
+            const isCorrectPosition = (correctRow === slotRow && correctCol === slotCol);
+            
+            // If slot is already occupied, swap the pieces
+            if (placedPieces[slotIndex]) {
+                const existingPiece = placedPieces[slotIndex];
+                document.getElementById('puzzle-pieces-container').appendChild(existingPiece);
+            }
+            
+            // Place the dragged piece in the slot
+            this.appendChild(draggedPiece);
+            placedPieces[slotIndex] = draggedPiece;
+            
+            // Visual feedback
+            if (isCorrectPosition) {
+                draggedPiece.classList.add('correct-position');
+            } else {
+                draggedPiece.classList.remove('correct-position');
+            }
+            
+            // Check if puzzle is solved
+            checkPuzzleSolved();
+        }
+
+        function checkPuzzleSolved() {
+            let isSolved = true;
+            
+            for (let i = 0; i < placedPieces.length; i++) {
+                if (!placedPieces[i]) {
+                    isSolved = false;
+                    break;
+                }
+                
+                const pieceIndex = parseInt(placedPieces[i].dataset.index);
+                const correctRow = Math.floor(pieceIndex / puzzleSize);
+                const correctCol = pieceIndex % puzzleSize;
+                const slotRow = Math.floor(i / puzzleSize);
+                const slotCol = i % puzzleSize;
+                
+                if (correctRow !== slotRow || correctCol !== slotCol) {
+                    isSolved = false;
+                    break;
+                }
+            }
+            
+            if (isSolved) {
+                document.getElementById('puzzle-board').classList.add('puzzle-solved');
+                document.getElementById('math-result').classList.remove('hidden');
+                fireConfetti();
+                
+                // Scroll to the result to make sure it's visible
+                document.getElementById('math-result').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+        
+        // Physics challenge functions
+        function checkPhysicsAnswer(button, isCorrect, feedbackId) {
+            if (button.disabled) return;
+            
+            const questionDiv = button.closest('.bg-gray-700');
+            const buttons = questionDiv.querySelectorAll('button');
+            
+            // Disable all buttons in this question
+            buttons.forEach(btn => {
+                btn.disabled = true;
+            });
+            
+            if (isCorrect) {
+                button.classList.remove('bg-gray-600', 'hover:bg-gray-500');
+                button.classList.add('bg-green-600');
+                correctPhysicsAnswers++;
+            } else {
+                button.classList.remove('bg-gray-600', 'hover:bg-gray-500');
+                button.classList.add('bg-red-600');
+                
+                // Highlight correct answer
+                buttons.forEach(btn => {
+                    if (btn.getAttribute('onclick').includes('true')) {
+                        btn.classList.remove('bg-gray-600', 'hover:bg-gray-500');
+                        btn.classList.add('bg-green-600');
+                    }
+                });
+            }
+            
+            // Show feedback
+            const feedbackEl = document.getElementById(feedbackId);
+            if (feedbackEl) {
+                feedbackEl.classList.remove('hidden');
+                feedbackEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+            
+            // Check if all questions are answered
+            checkPhysicsCompletion();
+        }
+
+        function checkPhysicsCompletion() {
+            const allQuestions = document.querySelectorAll('#physics-questions > div');
+            const answeredQuestions = document.querySelectorAll('#physics-questions button[disabled]').length / 3;
+            
+            if (answeredQuestions === allQuestions.length) {
+                if (correctPhysicsAnswers === allQuestions.length) {
+                    // All correct - show success message
+                    document.getElementById('physics-result').classList.remove('hidden');
+                    document.getElementById('physics-result').scrollIntoView({ behavior: 'smooth' });
+                } else {
+                    // Not all correct - show retry message
+                    setTimeout(() => {
+                        alert(`You got ${correctPhysicsAnswers} out of ${allQuestions.length} correct! Try again to unlock the final surprise.`);
+                        resetPhysicsGame();
+                    }, 1000);
+                }
+            }
+        }
+
+        function resetPhysicsGame() {
+            correctPhysicsAnswers = 0;
+            const buttons = document.querySelectorAll('#physics-questions button');
+            buttons.forEach(button => {
+                button.disabled = false;
+                button.classList.remove('bg-green-600', 'bg-red-600');
+                button.classList.add('bg-gray-600', 'hover:bg-gray-500');
+            });
+            
+            const feedbackElements = document.querySelectorAll('#physics-page .hidden[id^="physics-feedback"]');
+            feedbackElements.forEach(el => {
+                el.classList.add('hidden');
+            });
+            
+            document.getElementById('physics-result').classList.add('hidden');
+        }
+        
+        // Superhero Match Game functions
+        function setupMatchGame() {
+            const gameContainer = document.getElementById('match-game');
+            gameContainer.innerHTML = '';
+            
+            // Duplicate and shuffle cards
+            const cards = [...superheroCards, ...superheroCards]
+                .sort(() => Math.random() - 0.5)
+                .map((card, i) => ({...card, id: i}));
+            
+            // Create cards
+            cards.forEach(card => {
+                const cardElement = document.createElement('div');
+                cardElement.className = 'match-card h-24 md:h-32 bg-gray-700 rounded-lg relative cursor-pointer';
+                cardElement.dataset.id = card.id;
+                cardElement.dataset.name = card.name;
+                
+                cardElement.innerHTML = `
+                    <div class="front absolute w-full h-full flex items-center justify-center bg-gray-600 rounded-lg">
+                        <i class="fas fa-question text-3xl text-yellow-400"></i>
+                    </div>
+                    <div class="back absolute w-full h-full flex flex-col items-center justify-center p-2 rounded-lg">
+                        <img src="${card.symbol}" class="w-12 h-12 mb-2" alt="${card.name}">
+                        <span class="text-xs text-center">${card.name}</span>
+                    </div>
+                `;
+                
+                cardElement.addEventListener('click', flipCard);
+                gameContainer.appendChild(cardElement);
+            });
+            
+            // Reset game state
+            firstCard = null;
+            secondCard = null;
+            lockBoard = false;
+            matchedPairs = 0;
+            document.getElementById('superhero-result').classList.add('hidden');
+        }
+        
+        function flipCard() {
+            try {
+                if (lockBoard) return;
+                if (this === firstCard) return;
+                
+                this.classList.add('flipped');
+                
+                if (!firstCard) {
+                    firstCard = this;
+                    return;
+                }
+                
+                secondCard = this;
+                lockBoard = true;
+                
+                checkForMatch();
+            } catch (error) {
+                console.error('Error flipping card:', error);
+                resetBoard();
+            }
+        }
+        
+        function checkForMatch() {
+            try {
+                if (!firstCard || !secondCard) {
+                    resetBoard();
+                    return;
+                }
+                
+                const isMatch = firstCard.dataset.name === secondCard.dataset.name;
+                
+                if (isMatch) {
+                    disableCards();
+                    matchedPairs++;
+                    
+                    if (matchedPairs === superheroCards.length) {
+                        setTimeout(() => {
+                            const resultElement = document.getElementById('superhero-result');
+                            if (resultElement) {
+                                resultElement.classList.remove('hidden');
+                            }
+                        }, 1000);
+                    }
+                } else {
+                    unflipCards();
+                }
+            } catch (error) {
+                console.error('Error checking match:', error);
+                resetBoard();
+            }
+        }
+        
+        function disableCards() {
+            firstCard.removeEventListener('click', flipCard);
+            secondCard.removeEventListener('click', flipCard);
+            
+            resetBoard();
+        }
+        
+        function unflipCards() {
+            setTimeout(() => {
+                firstCard.classList.remove('flipped');
+                secondCard.classList.remove('flipped');
+                
+                resetBoard();
+            }, 1000);
+        }
+        
+        function resetBoard() {
+            [firstCard, secondCard] = [null, null];
+            lockBoard = false;
+        }
+        
+        // Confetti celebration
+        function fireConfetti() {
+            confetti({
+                particleCount: 150,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+            
+            // Different colors
+            setTimeout(() => {
+                confetti({
+                    particleCount: 100,
+                    spread: 60,
+                    origin: { x: 0.3, y: 0.6 },
+                    colors: ['#121212', '#444444', '#2367b0', '#d20000', '#ffbc00']
+                });
+            }, 300);
+            
+            setTimeout(() => {
+                confetti({
+                    particleCount: 100,
+                    spread: 60,
+                    origin: { x: 0.7, y: 0.6 },
+                    colors: ['#121212', '#444444', '#2367b0', '#d20000', '#ffbc00']
+                });
+            }, 600);
+            
+            setTimeout(() => {
+                confetti({
+                    particleCount: 200,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 }
+                });
+                
+                confetti({
+                    particleCount: 200,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 }
+                });
+            }, 900);
+        }
+        
+        // Easter egg
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'k' || e.key === 'K') {
+                // K for Khanya!
+                fireConfetti();
+            }
+        });
+
+        // Initialize puzzle game when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            setupPuzzleGame();
+        });
+    </script>
+</body>
+</html>
